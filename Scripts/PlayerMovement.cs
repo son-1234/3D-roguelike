@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 jumpPower = Vector3.up * jumpHeight;
             rb.AddForce(jumpPower,ForceMode.VelocityChange);
         }
-        if (Input.GetButtonDown("Dash") && Ground)
+        if (Input.GetButtonDown("Dash"))
         {
             Vector3 dashPower = this.transform.forward * dash;
             rb.AddForce(dashPower, ForceMode.VelocityChange);
