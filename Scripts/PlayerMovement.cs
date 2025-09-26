@@ -9,14 +9,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public float jumpHeight = 3f;
     [SerializeField] public float dash =  5f;
     [SerializeField] public float rotSpeed =  3f;
+    [SerializeField] public float mouseSensitivity = 1000f;
+
     private Vector3 dir = Vector3.zero;
 
     private bool Ground = false;
     [SerializeField] public LayerMask layer;
+    
+    [SerializeField] private Transform playerCamera; // 카메라 Transform
+
+    private float xRotation = 0f; // 카메라 X축 회전값
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;//마우스 고정
+        Cursor.visible = false;
     }
     
     // Update is called once per frame
@@ -38,20 +46,25 @@ public class PlayerMovement : MonoBehaviour
             Vector3 dashPower = this.transform.forward * dash;
             rb.AddForce(dashPower, ForceMode.VelocityChange);
         }
+        
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        
+        transform.Rotate(0f, mouseX, 0f);
+        
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // 상하 회전 제한
+
+        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
     private void FixedUpdate()
     {
         if (dir != Vector3.zero)
         {
-            if (Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x) || Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z))
-            {
-                transform.Rotate(0, 1, 0);
-            }
-            transform.forward = Vector3.Lerp(transform.forward, dir, rotSpeed * Time.deltaTime);
+            Vector3 moveDir = transform.TransformDirection(dir);
+            rb.MovePosition(transform.position + moveDir * speed * Time.deltaTime);
         }
-        
-        rb.MovePosition(this.gameObject.transform.position + dir * speed * Time.deltaTime);
     }
 
     void checkGround()

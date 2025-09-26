@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 273399426}
   - component: {fileID: 273399425}
   - component: {fileID: 273399424}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -415,7 +415,7 @@ MonoBehaviour:
   player: {fileID: 2128208259}
   GrapplingObj:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!65 &334106053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 1061821272}
   - component: {fileID: 1061821271}
   - component: {fileID: 1061821270}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -901,7 +901,7 @@ GameObject:
   - component: {fileID: 1252043797}
   - component: {fileID: 1252043796}
   - component: {fileID: 1252043795}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
